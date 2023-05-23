@@ -8,13 +8,6 @@
 import Foundation
 import SwiftUI
 
-// MARK: - MenuItemWrap
-protocol MenuItemWrap {
-    var id: UUID { get }
-    var name: String { get }
-    var type: MenuItemType { get }
-}
-
 struct MenuItem: Identifiable, Equatable {
     var id: UUID
     var title: String?

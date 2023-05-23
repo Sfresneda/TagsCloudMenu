@@ -7,10 +7,10 @@
 
 import SwiftUI
 
-struct MenuView: View {
-    @Binding var items: [MenuItem]
+struct MenuView<Model: MenuItemWrap>: View {
+    @Binding var items: [Model]
     var alignment: MenuAlignment
-    var buttonTapAction: ((UUID) -> Void)?
+    var tapAction: ((UUID) -> Void)?
     
     var isDebug: Bool = false
 
@@ -24,12 +24,12 @@ struct MenuView: View {
     }
 }
 private extension MenuView {
-    func buildCellforItem(_ item: MenuItemWrap, priority: Double = .zero) -> some View {
+    func buildCellforItem(_ item: Model, priority: Double = .zero) -> some View {
         switch item.type {
         case .regular:
             return AnyView(
                 RegularCell(model: item,
-                            pressAction: buttonTapAction,
+                            tapAction: tapAction,
                             isDebug: isDebug)
             )
 
@@ -41,9 +41,9 @@ private extension MenuView {
         case .oneLine:
             return AnyView(
                 OneLineCell(model: item,
-                             pressAction: buttonTapAction,
-                             aligment: alignment,
-                             isDebug: isDebug)
+                            tapAction: tapAction,
+                            aligment: alignment,
+                            isDebug: isDebug)
             )
         }
     }

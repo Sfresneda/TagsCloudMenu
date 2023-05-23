@@ -8,16 +8,16 @@
 import SwiftUI
 
 struct BaseCell<Content: View>: MenuCell {
-    var model: MenuItemWrap
+    var model: any MenuItemWrap
     var extraContent: Content
-    var pressAction: ((UUID) -> Void)?
-
+    var tapAction: ((UUID) -> Void)?
+    
     var isDebug: Bool = false
     var debugBackgroundColor: Color = .green
-
+    
     var body: some View {
         Button {
-            pressAction?(model.id)
+            tapAction?(model.id)
         } label: {
             HStack {
                 Text(model.name)
@@ -36,7 +36,7 @@ extension MenuCell {
         let padding: EdgeInsets = padding
         ? EdgeInsets(top: 5, leading: 5, bottom: 5, trailing: 5)
         : EdgeInsets(top: .zero, leading: .zero, bottom: .zero, trailing: .zero)
-
+        
         return body
             .padding(padding)
             .border(.gray, width: 2)

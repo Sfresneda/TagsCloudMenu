@@ -11,5 +11,4 @@ Capabilities:
 
 | Leading  | Trailing  |
 |:----------|:----------|
-| ![leading tags menu in debug](assets/leading-tags-menu.png) | ![trailing tags menu in debug](assets/tags-menu.png) |
 | ![leading tags menu in debug](assets/leading-tags-menu-debug.png) | ![trailing tags menu in debug](assets/tags-menu-debug.png) |

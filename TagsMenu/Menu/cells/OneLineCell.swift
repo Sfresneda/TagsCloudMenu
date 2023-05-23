@@ -8,8 +8,8 @@
 import SwiftUI
 
 struct OneLineCell: MenuCell {
-    var model: MenuItemWrap
-    var pressAction: ((UUID) -> Void)?
+    var model: any MenuItemWrap
+    var tapAction: ((UUID) -> Void)?
     let aligment: MenuAlignment
 
     var isDebug: Bool = false
@@ -23,7 +23,7 @@ struct OneLineCell: MenuCell {
             
             BaseCell(model: model,
                      extraContent: Image(systemName: "star"),
-                     pressAction: pressAction,
+                     tapAction: tapAction,
                      isDebug: isDebug,
                      debugBackgroundColor: debugBackgroundColor)
             .addBorder()

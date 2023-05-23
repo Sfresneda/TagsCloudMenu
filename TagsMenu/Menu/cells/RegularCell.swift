@@ -8,8 +8,8 @@
 import SwiftUI
 
 struct RegularCell: View {
-    var model: MenuItemWrap
-    var pressAction: ((UUID) -> Void)?
+    var model: any MenuItemWrap
+    var tapAction: ((UUID) -> Void)?
 
     var isDebug: Bool = false
     private let debugBackgroundColor: Color = .teal
@@ -18,7 +18,7 @@ struct RegularCell: View {
         HStack {
             BaseCell(model: model,
                      extraContent: HStack {},
-                     pressAction: pressAction,
+                     tapAction: tapAction,
                      isDebug: isDebug,
                      debugBackgroundColor: debugBackgroundColor)
             .addBorder()
