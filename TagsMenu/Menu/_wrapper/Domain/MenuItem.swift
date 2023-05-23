@@ -15,18 +15,24 @@ protocol MenuItemWrap {
     var type: MenuItemType { get }
 }
 
-struct MenuItem: Identifiable, Hashable {
-    var id: UUID = UUID()
+struct MenuItem: Identifiable, Equatable {
+    var id: UUID
     var title: String?
     var isOneLine: Bool
     var isSpacer: Bool
 
     init(title: String?,
          containsIcon: Bool,
-         isSpacer: Bool) {
+         isSpacer: Bool,
+         id: UUID = UUID()) {
         self.title = title
         self.isOneLine = containsIcon
         self.isSpacer = isSpacer
+        self.id = id
+    }
+    
+    static func ==(rhs: MenuItem, lhs: MenuItem) -> Bool {
+        rhs.id == lhs.id
     }
 }
 

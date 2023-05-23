@@ -7,10 +7,10 @@
 
 import SwiftUI
 
-struct WrappedZStackView<Model, V>: View where Model: Hashable, V: View {
+struct WrappedZStackView<Model, V>: View where Model: Identifiable, Model: Equatable, V: View {
     typealias ViewGenerator = (Model) -> V
 
-    var models: [Model]
+    @Binding var models: [Model]
     var horizontalSpacing: CGFloat = 4
     var verticalSpacing: CGFloat = 4
     var alignment: MenuAlignment = .trailing
@@ -37,7 +37,7 @@ private extension WrappedZStackView {
         : models.last
 
         return ZStack(alignment: alignment.aligment) {
-            ForEach(models, id: \.self) { model in
+            ForEach(models) { model in
                 viewGenerator(model)
                     .padding(.horizontal, horizontalSpacing)
                     .padding(.vertical, verticalSpacing)

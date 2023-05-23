@@ -8,14 +8,14 @@
 import SwiftUI
 
 struct MenuView: View {
-    var items: [MenuItem]
+    @Binding var items: [MenuItem]
     var alignment: MenuAlignment
     var buttonTapAction: ((UUID) -> Void)?
     
     var isDebug: Bool = false
 
     var body: some View {
-        WrappedZStackView(models: items,
+        WrappedZStackView(models: $items,
                           horizontalSpacing: 5,
                           verticalSpacing: 2,
                           alignment: alignment) { item in
