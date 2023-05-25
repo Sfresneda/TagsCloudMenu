@@ -25,6 +25,7 @@ struct WrappedZStackView<Model, V>: View where Model: Identifiable, Model: Equat
             }
         }
         .frame(height: totalHeight)
+        .flipped(alignment == .trailing)
     }
 }
 private extension WrappedZStackView {
@@ -32,19 +33,15 @@ private extension WrappedZStackView {
         var width: CGFloat = .zero
         var height: CGFloat = .zero
 
-        let modelToCompare = alignment == .trailing
-        ? models.first
-        : models.last
-
-        return ZStack(alignment: alignment.aligment) {
+        return ZStack(alignment: .topLeading) {
             ForEach(models) { model in
                 viewGenerator(model)
+                    .flipped(alignment == .trailing)
                     .padding(.horizontal, horizontalSpacing)
                     .padding(.vertical, verticalSpacing)
-                    .alignmentGuide(alignment.horizontalAligment,
+                    .alignmentGuide(.leading,
                                     computeValue: { dimension in
-                        horizontalAligmentGuide(alignment,
-                                                model: model,
+                        horizontalAligmentGuide(model: model,
                                                 geometry: geometry,
                                                 width: &width,
                                                 height: &height,
@@ -52,7 +49,7 @@ private extension WrappedZStackView {
                     })
                     .alignmentGuide(.top, computeValue: { _ in
                         let result = height
-                        if model == modelToCompare {
+                        if model == models.last {
                             height = .zero
                         }
                         return result
@@ -61,42 +58,24 @@ private extension WrappedZStackView {
         }
         .background(viewHeightReader($totalHeight))
     }
-    func horizontalAligmentGuide(_ alignment: MenuAlignment,
-                                 model: Model,
+    func horizontalAligmentGuide(model: Model,
                                  geometry: GeometryProxy,
                                  width: inout CGFloat,
                                  height: inout CGFloat,
                                  dimension: ViewDimensions) -> CGFloat {
-        switch alignment {
-        case .trailing:
-            if abs(width + dimension.width) > geometry.size.width {
-                width = .zero
-                height -= dimension.height
-            }
-            width += dimension.width
-
-            let result = width
-
-            if model == self.models.first {
-                width = .zero
-            }
-            return result
-
-        case .leading:
-            if (abs(width - dimension.width) > geometry.size.width) {
-                width = .zero
-                height -= dimension.height
-            }
-
-            let result = width
-
-            if model == self.models.last! {
-                width = .zero
-            } else {
-                width -= dimension.width
-            }
-            return result
+        if (abs(width - dimension.width) > geometry.size.width) {
+            width = .zero
+            height -= dimension.height
         }
+
+        let result = width
+
+        if model == self.models.last! {
+            width = .zero
+        } else {
+            width -= dimension.width
+        }
+        return result
     }
 
     private func viewHeightReader(_ binding: Binding<CGFloat>) -> some View {
@@ -110,3 +89,13 @@ private extension WrappedZStackView {
     }
 }
 
+private extension View {
+    @ViewBuilder
+    func flipped(_ condition: Bool) -> some View {
+        if condition {
+            self.scaleEffect(x: -1, y: 1, anchor: .center)
+        } else {
+            self
+        }
+    }
+}
