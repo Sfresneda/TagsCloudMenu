@@ -25,10 +25,10 @@ struct ContentView: View {
     }
 }
 private extension ContentView {
-    func handleMenuTap(id: UUID) {
-        debugPrint("Button pressed with id: \(id.uuidString)")
+    func handleMenuTap(id: AnyHashable) {
+        debugPrint("Button pressed with id: \(id)")
     }
-    func handleHeaderTap(id: UUID) {
+    func handleHeaderTap(id: AnyHashable) {
         menuItems = menuItems.shuffled()
     }
 }

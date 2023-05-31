@@ -10,4 +10,13 @@ import SwiftUI
 enum MenuAlignment {
     case leading
     case trailing
+
+    var animationDirection: AnimationDirection {
+        switch self {
+        case .leading:
+            return .leading
+        case .trailing:
+            return .trailing
+        }
+    }
 }

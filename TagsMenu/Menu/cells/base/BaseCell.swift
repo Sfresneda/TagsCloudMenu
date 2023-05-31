@@ -7,10 +7,10 @@
 
 import SwiftUI
 
-struct BaseCell<Content: View>: MenuCell {
-    var model: any MenuItemWrap
+struct BaseCell<Content: View, Model: MenuItemWrap>: MenuCell {
+    var model: Model
     var extraContent: Content
-    var tapAction: ((UUID) -> Void)?
+    var tapAction: ((Model.ID) -> Void)?
     
     var isDebug: Bool = false
     var debugBackgroundColor: Color = .green

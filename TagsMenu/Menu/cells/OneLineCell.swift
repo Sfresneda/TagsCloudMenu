@@ -7,9 +7,9 @@
 
 import SwiftUI
 
-struct OneLineCell: MenuCell {
-    var model: any MenuItemWrap
-    var tapAction: ((UUID) -> Void)?
+struct OneLineCell<Model: MenuItemWrap>: MenuCell {
+    var model: Model
+    var tapAction: ((Model.ID) -> Void)?
     let aligment: MenuAlignment
 
     var isDebug: Bool = false

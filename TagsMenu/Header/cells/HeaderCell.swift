@@ -7,10 +7,10 @@
 
 import SwiftUI
 
-struct HeaderCell: View {
-    @State var title: String
+struct HeaderCell<Model: HeaderItemWrap>: View {
+    var model: Model
     var body: some View {
-        Text(title)
+        Text(model.name)
             .font(.title2)
     }
 }

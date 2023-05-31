@@ -7,9 +7,9 @@
 
 import SwiftUI
 
-struct RegularCell: View {
-    var model: any MenuItemWrap
-    var tapAction: ((UUID) -> Void)?
+struct RegularCell<Model: MenuItemWrap>: View {
+    var model: Model
+    var tapAction: ((Model.ID) -> Void)?
 
     var isDebug: Bool = false
     private let debugBackgroundColor: Color = .teal

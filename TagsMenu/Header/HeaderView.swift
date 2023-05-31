@@ -7,12 +7,12 @@
 
 import SwiftUI
 
-struct HeaderView: View {
-    @Binding var items: [HeaderItem]
+struct HeaderView<Model: HeaderItemWrap>: View {
+    @Binding var items: [Model]
     var itemsSpacing: CGFloat = 30
     var leadingSpacing: CGFloat = 10
     var trailingSpacing: CGFloat = 10
-    var tapAction: ((UUID) -> ())?
+    var tapAction: ((Model.ID) -> Void)?
 
     private var rows: [GridItem] {
         [GridItem(.flexible())]
@@ -33,7 +33,7 @@ struct HeaderView: View {
                             }
 
                         } label: {
-                            HeaderCell(title: item.title)
+                            HeaderCell(model: item)
                         }
                     }
                     Spacer(minLength: trailingSpacing)
